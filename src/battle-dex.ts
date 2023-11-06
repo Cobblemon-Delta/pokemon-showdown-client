@@ -473,6 +473,17 @@ const Dex = new class implements ModdedDex {
 		el.src = path + 'data/pokedex-mini-bw.js' + qs;
 		document.getElementsByTagName('body')[0].appendChild(el);
 	}
+  fakemons = [
+    "wooper-delta",
+    "quaxolotl",
+    "lucaurus",
+    "sableye-delta",
+    "yanfern",
+    "yanmellia",
+    "gible-delta",
+    "gabite-delta",
+    "garchomp-delta",
+  ];
 	getSpriteData(pokemon: Pokemon | Species | string, isFront: boolean, options: {
 		gen?: number,
 		shiny?: boolean,
@@ -673,7 +684,9 @@ const Dex = new class implements ModdedDex {
 			spriteData.h *= 1.5;
 			spriteData.y += -11;
 		}
-
+    if (this.fakemons.includes(speciesid)) {
+      spriteData.url += 'http://localhost:8080/sprites/fakemons/' + name + '.gif';
+    }
 		return spriteData;
 	}
 
