@@ -475,7 +475,14 @@ const Dex = new class implements ModdedDex {
 	}
   fakemons = [
     'aegislash-delta-blade',
+    'aipom-delta',
+    'ambipom-delta',
+    'arcanine-delta',
     'brawleon',
+    'chatot-delta',
+    'corsola-delta',
+    'curesola',
+    'cyndaquil-delta',
     'doublade-delta',
     'draceon',
     'dragetsu',
@@ -486,19 +493,29 @@ const Dex = new class implements ModdedDex {
     "gible-delta",
     "gorochu",
     "greninja-delta",
+    'growlithe-delta',
     'guardeon',
     'honedge-delta',
     'lopunny-delta',
     "lucaurus",
+    'maestrot',
+    'magirigus',
     'manteon',
     'niveon',
+    'operetto',
     "quaxolotl",
+    'quilava-delta',
     "raticate-delta",
     "rattata-delta",
     "sableye-delta",
     "steelix-delta",
+    'turnimite',
+    'turniton',
+    'turnizone',
+    'typhlosion-delta',
     'veneon',
     "wooper-delta",
+    'yamask-delta',
     "yanfern",
     "yanmellia",
   ];
@@ -762,7 +779,7 @@ const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
-    if(this.fakemons.includes(id)) return `background:transparent url(http://localhost:8080/sprites/fakemons/${id}.gif) no-repeat -${left}px -${top}px${fainted}`;
+    if(this.fakemons.includes(id)) return `background:transparent url(http://localhost:8080/sprites/icons/${id}.gif) no-repeat -${left}px -${top}px${fainted}`;
 		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v14) no-repeat scroll -${left}px -${top}px${fainted}`;
 	}
 

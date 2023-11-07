@@ -1,0 +1,1 @@
+Icons should be 40x40!
