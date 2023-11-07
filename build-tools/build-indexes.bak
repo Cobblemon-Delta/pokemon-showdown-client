@@ -79,8 +79,6 @@ function requireNoCache(pathSpec) {
 
 	// generate aliases
 	function generateAlias(id, name, type) {
-		console.log(name);
-		if (name === undefined) return;
 		let i = name.lastIndexOf(' ');
 		if (i < 0) i = name.lastIndexOf('-');
 		if (name.endsWith('-Mega-X') || name.endsWith('-Mega-Y')) {
@@ -350,8 +348,8 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			if (isStadium) genStr += 'stadium' + (genNum > 1 ? genNum : '');
 			return genStr;
 		})();
-		const mod = gen === 'gen9' ? 'cobblemon' : gen;
 		// process.stdout.write("" + gen + (isDoubles ? " doubles" : "") + "... ");
+		const mod = gen === 'gen9' ? 'cobblemon' : gen;
 		const pokemon = Object.keys(Dex.data.Pokedex);
 		pokemon.sort();
 		const tierTable = {};
@@ -958,7 +956,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			}
 		}
 	}
-	const PreDLCLearnsets = require('../data/pokemon-showdown/dist/sim/dex').Dex.mod('gen9predlc').data.Learnsets;
+	const PreDLCLearnsets = Dex.mod('gen9predlc').data.Learnsets;
 	for (const id in PreDLCLearnsets) {
 		const learnset = PreDLCLearnsets[id].learnset;
 		if (!learnset) continue;
@@ -1153,8 +1151,7 @@ console.log("DONE");
 process.stdout.write("Building `data/pokedex.js`... ");
 
 {
-	// const Pokedex = requireNoCache('../data/pokemon-showdown/dist/data/pokedex.js').Pokedex;
-	const Pokedex = Dex.data.Pokedex;
+	const Pokedex = requireNoCache('../data/pokemon-showdown/dist/data/pokedex.js').Pokedex;
 	for (const id in Pokedex) {
 		const entry = Pokedex[id];
 		if (Dex.data.FormatsData[id]) {
@@ -1179,8 +1176,7 @@ console.log("DONE");
 process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.js`...");
 
 {
-	// const Moves = requireNoCache('../data/pokemon-showdown/dist/data/moves.js').Moves;
-	const Moves = Dex.data.Moves;
+	const Moves = requireNoCache('../data/pokemon-showdown/dist/data/moves.js').Moves;
 	for (const id in Moves) {
 		const move = Dex.moves.get(Moves[id].name);
 		if (move.desc) Moves[id].desc = move.desc;
@@ -1196,8 +1192,7 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	// const Items = requireNoCache('../data/pokemon-showdown/dist/data/items.js').Items;
-	const Items = Dex.data.Items;
+	const Items = requireNoCache('../data/pokemon-showdown/dist/data/items.js').Items;
 	for (const id in Items) {
 		const item = Dex.items.get(Items[id].name);
 		if (item.desc) Items[id].desc = item.desc;
@@ -1212,8 +1207,7 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	// const Abilities = requireNoCache('../data/pokemon-showdown/dist/data/abilities.js').Abilities;
-	const Abilities = Dex.data.Abilities;
+	const Abilities = requireNoCache('../data/pokemon-showdown/dist/data/abilities.js').Abilities;
 	for (const id in Abilities) {
 		const ability = Dex.abilities.get(Abilities[id].name);
 		if (ability.desc) Abilities[id].desc = ability.desc;
@@ -1248,8 +1242,7 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	// const FormatsData = requireNoCache('../data/pokemon-showdown/dist/data/formats-data.js').FormatsData;
-	const FormatsData = Dex.data.FormatsData;
+	const FormatsData = requireNoCache('../data/pokemon-showdown/dist/data/formats-data.js').FormatsData;
 	const buf = 'exports.BattleFormatsData = ' + es3stringify(FormatsData) + ';';
 	fs.writeFileSync('data/formats-data.js', buf);
 }
@@ -1269,8 +1262,7 @@ process.stdout.write("Building `data/moves,items,abilities,typechart,learnsets.j
  *********************************************************/
 
 {
-	// const Learnsets = requireNoCache('../data/pokemon-showdown/dist/data/learnsets.js').Learnsets;
-	const Learnsets = Dex.data.Learnsets;
+	const Learnsets = requireNoCache('../data/pokemon-showdown/dist/data/learnsets.js').Learnsets;
 	const buf = 'exports.BattleLearnsets = ' + es3stringify(Learnsets) + ';';
 	fs.writeFileSync('data/learnsets.js', buf);
 	fs.writeFileSync('data/learnsets.json', JSON.stringify(Learnsets));

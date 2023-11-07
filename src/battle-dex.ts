@@ -474,15 +474,20 @@ const Dex = new class implements ModdedDex {
 		document.getElementsByTagName('body')[0].appendChild(el);
 	}
   fakemons = [
-    "wooper-delta",
-    "quaxolotl",
-    "lucaurus",
-    "sableye-delta",
-    "yanfern",
-    "yanmellia",
-    "gible-delta",
     "gabite-delta",
     "garchomp-delta",
+    "gible-delta",
+    "gorochu",
+    "greninja-delta",
+    "lucaurus",
+    "quaxolotl",
+    "raticate-delta",
+    "rattata-delta",
+    "sableye-delta",
+    "steelix-delta",
+    "wooper-delta",
+    "yanfern",
+    "yanmellia",
   ];
 	getSpriteData(pokemon: Pokemon | Species | string, isFront: boolean, options: {
 		gen?: number,
@@ -684,8 +689,8 @@ const Dex = new class implements ModdedDex {
 			spriteData.h *= 1.5;
 			spriteData.y += -11;
 		}
-    if (this.fakemons.includes(speciesid)) {
-      spriteData.url += 'http://localhost:8080/sprites/fakemons/' + name + '.gif';
+    if(this.fakemons.includes(species.id)) {
+      spriteData.url = "http://localhost:8080/sprites/fakemons/" + speciesid + ".gif";
     }
 		return spriteData;
 	}
@@ -744,6 +749,7 @@ const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
+    if(this.fakemons.includes(id)) return `background:transparent url(http://localhost:8080/sprites/fakemons/${id}.gif) no-repeat -${left}px -${top}px${fainted}`;
 		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v14) no-repeat scroll -${left}px -${top}px${fainted}`;
 	}
 
@@ -785,7 +791,10 @@ const Dex = new class implements ModdedDex {
 			return spriteData;
 		}
 		spriteData.spriteDir = 'sprites/gen5';
-		if (gen <= 1 && species.gen <= 1) spriteData.spriteDir = 'sprites/gen1';
+		if(this.fakemons.includes(id)) {
+      spriteData.spriteDir = 'sprites/fakemons';
+    }
+    if (gen <= 1 && species.gen <= 1) spriteData.spriteDir = 'sprites/gen1';
 		else if (gen <= 2 && species.gen <= 2) spriteData.spriteDir = 'sprites/gen2';
 		else if (gen <= 3 && species.gen <= 3) spriteData.spriteDir = 'sprites/gen3';
 		else if (gen <= 4 && species.gen <= 4) spriteData.spriteDir = 'sprites/gen4';
@@ -798,6 +807,7 @@ const Dex = new class implements ModdedDex {
 		if (!pokemon) return '';
 		const data = this.getTeambuilderSpriteData(pokemon, gen);
 		const shiny = (data.shiny ? '-shiny' : '');
+    if(this.fakemons.includes(data.spriteid)) return 'background-image:url(' + 'http://localhost:8080/sprites/fakemons/' + data.spriteid + '.gif);background-position: ' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 		return 'background-image:url(' + Dex.resourcePrefix + data.spriteDir + shiny + '/' + data.spriteid + '.png);background-position:' + data.x + 'px ' + data.y + 'px;background-repeat:no-repeat';
 	}
 
