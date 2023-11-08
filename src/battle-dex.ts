@@ -508,6 +508,7 @@ const Dex = new class implements ModdedDex {
     "raticate-delta",
     "rattata-delta",
     "sableye-delta",
+    'spectreon',
     "steelix-delta",
     'turnimite',
     'turniton',
