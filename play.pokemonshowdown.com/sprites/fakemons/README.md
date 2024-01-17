@@ -1,0 +1,1 @@
+Sprites should be 96x96!
