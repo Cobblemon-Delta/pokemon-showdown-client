@@ -17,7 +17,9 @@
  * @author Guangcong Luo <guangcongluo@gmail.com>
  * @license MIT
  */
+let fakemons: string[] = [
 
+];
 declare var require: any;
 declare var global: any;
 
@@ -780,6 +782,7 @@ const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
+    if(fakemons.includes(id)) return `background:transparent url(http://15.204.211.28:8080/sprites/fakemons/${id}.gif) no-repeat scroll -${left}px -${top}px${fainted}`;
 		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v16) no-repeat scroll -${left}px -${top}px${fainted}`;
 	}
 
